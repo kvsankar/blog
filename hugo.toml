@@ -1,0 +1,86 @@
+baseURL = "https://kvsankar.github.io/blog/"
+languageCode = "en-us"
+title = "kvsankar's Blog"
+theme = "PaperMod"
+
+# Enable useful features
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+# For RSS feed
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[params]
+  env = "production"
+  description = "A blog by kvsankar"
+  author = "kvsankar"
+
+  # Theme mode
+  defaultTheme = "auto"  # auto, light, dark
+  showThemeToggle = true
+
+  # Show reading time
+  showReadingTime = true
+  showShareButtons = true
+  showPostNavLinks = true
+  showBreadCrumbs = true
+  showCodeCopyButtons = true
+
+  # Home info mode (shows intro on homepage)
+  [params.homeInfoParams]
+    Title = "Welcome"
+    Content = "A space for my thoughts, tutorials, and explorations."
+
+  # Social icons
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/kvsankar"
+
+  [[params.socialIcons]]
+    name = "rss"
+    url = "/index.xml"
+
+# Main menu
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 30
+
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 40
+
+# Taxonomy
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# Markdown rendering
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    style = "github"
+    noClasses = false
+  [markup.goldmark.renderer]
+    unsafe = true  # Allow HTML in markdown

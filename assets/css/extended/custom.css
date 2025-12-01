@@ -1,0 +1,39 @@
+/* Override PaperMod's dark code blocks in light mode */
+:root {
+    --code-block-bg: #f6f8fa;
+}
+
+/* Light mode code blocks - target chroma */
+.highlight,
+.highlight pre,
+.highlight pre.chroma,
+pre.chroma {
+    background: #f6f8fa !important;
+    border: 1px solid #e1e4e8;
+}
+
+.highlight code,
+.chroma,
+.chroma .line,
+.chroma span {
+    background: transparent !important;
+    color: #24292e !important;
+}
+
+/* Dark mode */
+:root[data-theme="dark"] {
+    --code-block-bg: rgb(46, 46, 51);
+}
+
+[data-theme="dark"] .highlight,
+[data-theme="dark"] .highlight pre,
+[data-theme="dark"] pre.chroma {
+    background: #161b22 !important;
+    border-color: #30363d;
+}
+
+[data-theme="dark"] .chroma,
+[data-theme="dark"] .chroma .line,
+[data-theme="dark"] .chroma span {
+    color: #c9d1d9 !important;
+}

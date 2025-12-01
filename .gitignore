@@ -1,0 +1,25 @@
+# Hugo build output
+public/
+resources/_gen/
+hugo/
+.hugo_build.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Hugo temporary files
+hugo_stats.json
+
+# Python
+__pycache__/
+*.py[cod]
+.env
+venv/
