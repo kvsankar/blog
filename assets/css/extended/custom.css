@@ -37,3 +37,22 @@ pre.chroma {
 [data-theme="dark"] .chroma span {
     color: #c9d1d9 !important;
 }
+
+/* Fix social icons size on mobile */
+.social-icons svg {
+    width: 24px;
+    height: 24px;
+}
+
+.social-icons a {
+    padding: 8px;
+}
+
+/* Home info section - constrain on mobile */
+.first-entry {
+    min-height: auto;
+}
+
+.first-entry .entry-content {
+    max-width: 100%;
+}
