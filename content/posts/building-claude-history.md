@@ -1,7 +1,7 @@
 ---
 title: "Building claude-history: A Tool for Cross-Platform Claude Code Sessions"
 date: 2025-12-01
-draft: false
+draft: true
 description: "How I built a CLI tool to manage Claude Code conversation history across Windows, WSL, and Linux - and why your conversation history is more valuable than you think"
 categories: ["Tools", "AI"]
 tags: ["claude-code", "python", "cli", "productivity"]
