@@ -40,6 +40,13 @@ Add this to preserve your history:
 
 No point building a history tool if your history keeps disappearing.
 
+One more housekeeping item: if your Claude data lives on a different drive (common when running WSL or backing up to an external disk), set `CLAUDE_PROJECTS_DIR` before running the CLI so it knows where to look:
+
+```bash
+export CLAUDE_PROJECTS_DIR=/mnt/windows/Users/me/.claude/projects
+claude-history lsw
+```
+
 ## My Cross-Platform Reality
 
 I work on astronomy-related projects that need to run on Windows, WSL, and Linux. My typical workflow: push code from one platform, pull and continue on another. The `claude-history` tool itself was developed this way.
@@ -50,15 +57,18 @@ This means my conversation history for a single logical project gets scattered a
 
 `claude-history` is a single-file Python CLI with zero external dependencies. It reads the JSONL files Claude Code stores in `~/.claude/projects/` and exports them to readable Markdown.
 
+<details>
+<summary>Full CLI help (-h)</summary>
+
 ```
 $ claude-history --help
 usage: claude-history [-h] [--version]
-                      {lsw,lss,lsh,export,alias,stats,reset} ...
+                      {lsw,lss,lsh,export,alias,stats,reset,install} ...
 
 Browse and export Claude Code conversation history
 
 positional arguments:
-  {lsw,lss,lsh,export,alias,stats,reset}
+  {lsw,lss,lsh,export,alias,stats,reset,install}
                         Command to execute
     lsw                 List workspaces
     lss                 List sessions
@@ -67,6 +77,7 @@ positional arguments:
     alias               Manage workspace aliases
     stats               Show usage statistics and metrics
     reset               Reset stored data (database, settings, aliases)
+    install             Install CLI and Claude skill
 
 options:
   -h, --help            show this help message and exit
@@ -92,7 +103,7 @@ EXAMPLES:
 
     claude-history export myproject           # specific workspace, local
     claude-history export myproject --ah      # specific workspace, all homes
-    claude-history export file.jsonl         # export single file
+    claude-history export file.jsonl          # export single file
 
     claude-history export -o /tmp/backup      # current workspace, custom output
     claude-history export myproject -o ./out  # specific workspace, custom output
@@ -122,6 +133,8 @@ EXAMPLES:
     claude-history lss myproject --windows          # list Windows sessions
     claude-history export myproject --windows       # export from Windows
 ```
+
+</details>
 
 The key insight was making home (where) and workspace (which) filtering orthogonal:
 
@@ -156,49 +169,80 @@ claude-history alias add claude-history -r user@vm01 claude-history
 claude-history lss @claude-history
 ```
 
-Here's what that looks like - sessions from the same project across local (WSL), Windows, and a remote Linux VM:
+Here's what that looks like across my local workspaces (current name + older rename) and a remote Linux VM—paths are redacted with `...`:
 
 ```
-SOURCE              WORKSPACE                           FILE                    MESSAGES  DATE
-local               /home/sankar/.../claude-history     6c073d8e-....jsonl      2733      2025-11-30
-local               /home/sankar/.../claude-history     c37a7825-....jsonl      1397      2025-11-30
-windows:kvsan       /C/sankar/.../claude-history        28ff722d-....jsonl      769       2025-11-30
-remote:ubuntuvm01   /remote_.../claude-history          83f96a4f-....jsonl      445       2025-11-29
+$ claude-history lss --ah @claude-history
+
+Using alias @claude-history (use --this for current workspace only)
+HOME                    WORKSPACE                                   FILE                    MESSAGES  DATE
+local                   /home/.../projects/claude-history          3b4191bc-055f-4752-9029-1c69e29f5d3a.jsonl      2612  2025-12-04
+local                   /home/.../projects/claude-sessions         be3d3632-e442-436e-987a-d427e1d7b08b.jsonl      2347  2025-11-22
+remote:sankar@ubuntuvm01  /remote_ubuntuvm01_home/.../claude-history 895cefac-8e43-4dfe-8574-7b6636fdd428.jsonl       890  2025-11-30
+...
 ```
 
-One logical project, four different locations, unified view.
+![Multi-home session listing showing local and remote rows](/images/claude-history-lss.png)
+
+One logical project, multiple homes, unified view.
 
 ## Use Cases I Didn't Expect
 
 ### Generating Specifications from Conversations
 
-I built an astronomy app for a Chandrayaan-3 outreach session - a simple mission design tool as an educational aid. Claude made iterative development easy, but there were no upfront specs.
+The best example of this is my [Chandrayaan Mission Design](https://github.com/kvsankar/chandrayaan-mission-design) project. It started as an astronomy outreach tool—an interactive sandbox that middle-school students could use to explore mission design ideas around Chandrayaan-3. I iterated quickly with Claude, but never paused to write a traditional spec.
 
-Later, I used `claude-history` to export the conversations and create documentation. The history captures the *problem space* - what I needed and wanted. The code captures the *solution*. For a specification, you want to stay in the problem domain describing needs, not implementation details.
+Later, when I needed documentation, I exported the relevant sessions with `claude-history` and turned that transcript into the formal specification that now lives in [`docs/specs/spec.md`](https://github.com/kvsankar/chandrayaan-mission-design/blob/master/docs/specs/spec.md). The history captured the *problem space*—what students needed, what constraints mattered, the educational goals. The code, meanwhile, only reflected the *solution*.
+
+Here's an excerpt from those exports that made it straight into the spec:
+
+> ### Problem Statement
+> We need a pared-down mission-design sandbox that middle-school students can use during outreach sessions.
+>
+> - Inputs: launch date, target orbit, payload mass (preset presets OK)
+> - Outputs: simple delta-v budget, textual mission plan, SVG visualization
+> - Constraints: runs in browser, no install, offline fallback (PDF handout)
+
+That text came directly from the conversation history—no rewriting, no guessing. `claude-history` let me capture the intent at the moment it was articulated and crystallize it into a working specification later.
 
 ### Time Tracking
 
-The `stats --time` command calculates active Claude time per project:
+I originally added `stats --time` for curiosity, but it quickly became a practical tool. While wrapping up a consulting engagement, I wanted to understand how much of my deliverable time was spent collaborating with Claude versus research or meetings. Running `claude-history stats @consulting-project --time` produced a defensible record of “hands on keyboard with Claude” hours that I could compare against my invoice and status reports.
+
+Here’s a representative output (I keep snapshots like this in the project notes):
 
 ```
 $ claude-history stats @claude-history --time
 
+============================================================
 TIME TRACKING
-======================================================================
-Total work time: 34h 52m
-Work periods: 46
-Session files: 51
-Date range: 2025-11-20 to 2025-11-30
+============================================================
 
-Daily Breakdown:
-Date            Work Time    Periods   Messages
-----------------------------------------------
-2025-11-30         8h 33m          5       2735
-2025-11-29          5h 5m          7       1945
-2025-11-23         3h 28m          7        928
-2025-11-22         5h 32m          7       1727
-...
+Time
+   Total work time: 42h 43m
+   Work periods: 51
+   Session files: 68
+   Date range: 2025-11-20 to 2025-12-03
+
+Daily Breakdown
+
+Date            Work Time    Periods   Messages  Bar (time)
+----------------------------------------------------------
+2025-12-03         4h 57m          2       1949  ####################
+2025-12-02         1h 26m          2        506  ####
+2025-12-01          1h 3m          1        243  ###
+2025-11-30         9h 28m          5       3217  ####################
+2025-11-29         4h 33m          7       1580  ###############
+2025-11-24             6m          1         82  #
+2025-11-23         3h 28m          7        597  ###########
+2025-11-22         5h 32m          7       1727  ################
+2025-11-21         6h 50m         10       1327  ####################
+2025-11-20         5h 15m          9       1176  ################
+----------------------------------------------------------
+TOTAL             42h 43m         51      12404  ####################
 ```
+
+![Time tracking output with ASCII bars for each day](/images/claude-stats-time.png)
 
 This helped with my consulting project - I had a rough sense of time spent, but Claude gave me realistic figures. Note that this measures *active interaction time*. Requirements gathering, meetings, and thinking happen outside the tool.
 
@@ -220,6 +264,15 @@ Building a tool to analyze Claude Code conversations *using* Claude Code creates
 
 Looking at the exported sessions, you can see the project evolving - command-line arguments changing as I iterated on what felt intuitive, features emerging from actual use rather than upfront planning.
 
+If you want the broader lessons from those transcripts—how to structure Claude collaborations, how to set expectations, and how to keep documentation in lockstep—I captured them in a public-facing [Claude Collaboration Playbook](https://github.com/kvsankar/claude-history/blob/master/docs/claude-collaboration-playbook.md). It’s the distilled playbook I now hand to every new Claude session before we start shipping.
+
+## What's Next
+
+Two threads are already underway:
+
+- **Agent-agnostic history:** Claude is still my primary coding partner, but I'm experimenting with ingesting exports from other coding agents—Gemini CLI, Codex CLI, Cursor, etc.—so the tool can normalize them and give a unified view regardless of where the conversations started.
+- **Cross-home timelines:** A combined conversation history that spans every environment (local, WSL, Windows, SSH) is in progress. The idea is a chronological feed—CLI + HTML export—that lets me replay a feature build from start to ship, regardless of which machine I was on.
+
 ## Getting Started
 
 The tool is available on GitHub: [github.com/kvsankar/claude-history](https://github.com/kvsankar/claude-history) (MIT License)
@@ -234,6 +287,13 @@ chmod +x claude-history
 
 # Export current project to markdown
 ./claude-history export
+
+# Optional: point at a different Claude data directory
+CLAUDE_PROJECTS_DIR=/mnt/windows/Users/me/.claude/projects ./claude-history lss
+
+# Drop it in your PATH for convenience
+mv claude-history ~/bin/
+hash -r && claude-history --version
 ```
 
 For Windows, run with `python claude-history lss`.
@@ -245,5 +305,3 @@ Thanks to Simon Willison for his consistently high-signal, educational writing o
 ---
 
 Your Claude Code conversation history is more valuable than you might think. It contains design decisions, debugging sessions, research threads, and iterative refinements. With a bit of tooling, you can search it, learn from it, and reference it when that context matters most.
-
-*Built with Claude Code*
