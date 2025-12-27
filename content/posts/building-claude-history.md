@@ -182,7 +182,7 @@ remote:sankar@ubuntuvm01  /remote_ubuntuvm01_home/.../claude-history 895cefac-8e
 ...
 ```
 
-![Multi-home session listing showing local and remote rows](/images/claude-history-lss.png)
+![Multi-home session listing showing local and remote rows](/images/claude-history/claude-history-lss.png)
 
 One logical project, multiple homes, unified view.
 
@@ -242,7 +242,7 @@ Date            Work Time    Periods   Messages  Bar (time)
 TOTAL             42h 43m         51      12404  ####################
 ```
 
-![Time tracking output with ASCII bars for each day](/images/claude-stats-time.png)
+![Time tracking output with ASCII bars for each day](/images/claude-history/claude-stats-time.png)
 
 This helped with my consulting project - I had a rough sense of time spent, but Claude gave me realistic figures. Note that this measures *active interaction time*. Requirements gathering, meetings, and thinking happen outside the tool.
 
