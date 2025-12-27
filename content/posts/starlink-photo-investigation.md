@@ -23,6 +23,8 @@ The [official Starlink announcement](https://x.com/Starlink/status/2001691802911
 
 The next day, [Michael Nicolls](https://x.com/michaelnicollsx/status/2002419447521562638), VP of Starlink Engineering, shared an image:
 
+{{< twitter user="michaelnicollsx" id="2002419447521562638" >}}
+
 > "Imagery collected by Vantor's WorldView-3 satellite about 1 day after the anomaly shows that Starlink Satellite 35956 is largely intact. The 12-cm resolution image was collected over Alaska from 241 km away."
 
 [Vantor's LinkedIn post](https://www.linkedin.com/posts/vantortech_we-partnered-with-spacex-to-rapidly-image-activity-7408186335267540992-68ML) confirmed the rapid partnership.
