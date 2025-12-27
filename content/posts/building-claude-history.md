@@ -4,7 +4,7 @@ date: 2025-12-01
 draft: false
 description: "How I built a CLI tool to manage Claude Code conversation history across Windows, WSL, and Linux - and why your conversation history is more valuable than you think"
 categories: ["Tools", "AI"]
-tags: ["claude-code", "python", "cli", "productivity"]
+tags: ["Claude Code", "Python", "CLI", "Productivity"]
 ---
 
 I've been using Claude Code extensively for the past few months. One day, while working on a startup consulting project, I needed to reference an analysis Claude had helped me with. I had discussed alternatives, evaluated tradeoffs, and settled on a design approach for an Architecture Decision Record (ADR). But I hadn't asked Claude to generate the usual markdown report.

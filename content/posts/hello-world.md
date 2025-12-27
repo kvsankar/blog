@@ -1,10 +1,10 @@
 ---
 title: "Hello World"
-date: 2024-12-01
+date: 2025-12-01
 draft: false
 description: "My first blog post - setting up a GitHub Pages blog with Hugo"
 categories: ["Meta"]
-tags: ["hugo", "github-pages", "blogging"]
+tags: ["Hugo", "GitHub Pages", "Blogging"]
 ---
 
 # Hello World

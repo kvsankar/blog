@@ -4,7 +4,7 @@ date: 2025-12-26
 draft: false
 description: "A deep dive into satellite conjunction analysis after SpaceX partnered with Vantor to photograph an anomalous Starlink satellite - and what I learned about the limits of public orbital data"
 categories: ["Space", "Tools"]
-tags: ["satellites", "orbital-mechanics", "starlink", "tle", "spacex"]
+tags: ["Satellites", "Orbital Mechanics", "Starlink", "TLE", "SpaceX"]
 ---
 
 On December 17, 2025, Starlink satellite 35956 experienced an anomaly. Within a day, SpaceX had partnered with Vantor to photograph the tumbling satellite from orbit using WorldView-3. The image, taken from 241 km away, showed the satellite was "largely intact."
