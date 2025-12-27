@@ -188,6 +188,12 @@ But the investigation was worth it. Building [SatToSat](https://kvsankar.github.
 
 Sometimes the most interesting answer to a question is discovering why you can't answer it.
 
+## Discussion
+
+- [Twitter/X](https://x.com/kvsankar/status/2004856705134592508)
+- [LinkedIn](https://www.linkedin.com/posts/kvsankar_we-partnered-with-spacex-to-rapidly-image-activity-7410619632199467008-kvEd)
+- [Reddit r/SpaceXLounge](https://www.reddit.com/r/SpaceXLounge/comments/1pwsvdm/investigating_the_vantorstarlink_photo/)
+
 ---
 
 *The [investigation details](https://github.com/kvsankar/sattosat/blob/master/python/investigation/README.md), [analysis scripts](https://github.com/kvsankar/sattosat/blob/master/USAGE_SCRIPTS.md#starlink-35956-investigation), and [envelope analysis](https://github.com/kvsankar/sattosat/blob/master/USAGE_SCRIPTS.md#analyze-envelope-periods) are available in the [SatToSat repository](https://github.com/kvsankar/sattosat).*

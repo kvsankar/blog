@@ -306,6 +306,12 @@ For Windows, run with `python claude-history lss`.
 
 Thanks to Simon Willison for his consistently high-signal, educational writing on working with LLMs. His posts on conversation extraction and using history for better context directly inspired this project.
 
+## Discussion
+
+- [Twitter/X](https://x.com/kvsankar/status/1996964557353537565)
+- [LinkedIn](https://www.linkedin.com/posts/kvsankar_claudeai-aiassisteddevelopment-devtools-activity-7402887542179872768-OVXn)
+- [Reddit r/ClaudeAI](https://www.reddit.com/r/ClaudeAI/comments/1pexehu/claude_code_history_exporter_with_crossplatform/)
+
 ---
 
 Your Claude Code conversation history is more valuable than you might think. It contains design decisions, debugging sessions, research threads, and iterative refinements. With a bit of tooling, you can search it, learn from it, and reference it when that context matters most.
