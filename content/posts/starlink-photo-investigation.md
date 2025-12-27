@@ -6,7 +6,7 @@ description: "A deep dive into satellite conjunction analysis after SpaceX partn
 categories: ["Space", "Tools"]
 tags: ["Satellites", "Orbital Mechanics", "Starlink", "TLE", "SpaceX", "Vantor", "Maxar", "WorldView-3"]
 cover:
-  image: "/images/starlink-photo/main-view.png"
+  image: "/images/starlink-photo/og-cover.jpg"
   alt: "SatToSat showing WorldView-3 and Starlink orbits"
   relative: false
 ---
