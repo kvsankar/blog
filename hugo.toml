@@ -18,6 +18,9 @@ buildExpired = false
   description = "A blog by kvsankar"
   author = "kvsankar"
 
+  # Default Open Graph image (for social sharing)
+  images = ["/images/og-default.jpg"]
+
   # Theme mode
   defaultTheme = "auto"  # auto, light, dark
   showThemeToggle = true
@@ -84,3 +87,8 @@ buildExpired = false
     noClasses = false
   [markup.goldmark.renderer]
     unsafe = true  # Allow HTML in markdown
+  [markup.goldmark.extensions.passthrough]
+    enable = true
+    [markup.goldmark.extensions.passthrough.delimiters]
+      block = [['$$', '$$'], ['\[', '\]']]
+      inline = [['$', '$'], ['\(', '\)']]
