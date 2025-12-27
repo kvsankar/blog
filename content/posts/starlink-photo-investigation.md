@@ -53,47 +53,35 @@ The core conjunction algorithm:
 3. Find local minima in the distance function
 4. Refine to 100ms precision using ternary search
 
-## My Findings
+## The Investigation
 
-Loading WorldView-3 (NORAD 40115) and Starlink-35956 (NORAD 66620) into SatToSat, I searched for conjunctions on December 17-19. The results:
+I attempted to reproduce the reported 241 km approach over Alaska using three different approaches. None succeeded.
+
+### Goal 1: Find all close approaches on Dec 17-19
+
+Using public TLE data, I searched for all conjunctions < 1000 km between WorldView-3 and Starlink-35956:
 
 | # | Time (UTC) | Distance | Location |
 |---|------------|----------|----------|
 | 1 | Dec 17 12:19 | 204 km | Atlantic Ocean (53°N, 17°W) |
-| 2 | Dec 19 01:30 | 350 km | Sea of Okhotsk (55°N, 146°E) |
+| 2 | Dec 19 01:30 | 350 km | [Sea of Okhotsk](https://www.google.com/maps/@54,146,5z) (55°N, 146°E) |
 | 3 | Dec 18 23:55 | 981 km | Pacific (47°N, 167°E) |
 
-The Dec 19 01:30 UTC conjunction is December 18 evening in US time zones (5:30 PM PST) - fitting the "about 1 day after" description.
+**Result:** The closest approach was **204 km on Dec 17** - over the Atlantic, not Alaska. The Dec 19 01:30 UTC conjunction (350 km) is December 18 evening in US time zones, but it's over the Sea of Okhotsk, not Alaska.
 
-But wait. The reported distance was **241 km over Alaska**. Neither match.
+### Goal 2: Find approaches over Alaska
 
-## The Discrepancy
+I filtered specifically for times when WorldView-3 was over Alaska (including the Aleutian Islands):
 
-| Metric | Reported | Calculated (Dec 17) | Calculated (Dec 18 US) |
-|--------|----------|---------------------|------------------------|
-| Distance | 241 km | 204 km | 350 km |
-| Time | Dec 18 | Dec 17 12:19 UTC | Dec 19 01:30 UTC (Dec 18 5:30 PM PST) |
-| Location | Alaska | Atlantic (53°N, 17°W) | [Sea of Okhotsk](https://www.google.com/maps/@54,146,5z) (55°N, 146°E) |
+| Time (UTC) | Distance | Location |
+|------------|----------|----------|
+| Dec 18 23:54 | 1,157 km | Western Aleutians (50°N, 168°E) |
 
-I also searched specifically for approaches while WorldView-3 was over Alaska. The closest: **1,157 km** on Dec 18 23:54 UTC over the western Aleutians. Nowhere near 241 km.
+**Result:** The closest approach while over Alaska was **1,157 km** - nowhere near 241 km.
 
-What explains this gap?
+### Goal 3: Test with post-anomaly TLE
 
-### TLE Lag Doesn't Explain It
-
-Looking at the TLE history for Starlink-35956:
-
-| Date | Mean Motion (rev/day) | Notes |
-|------|----------------------|-------|
-| Dec 17 (pre-anomaly) | 15.493 | Normal |
-| Dec 18 (all TLEs) | 15.493 | Still "normal"! |
-| Dec 19 22:47 UTC | 15.452 | **Decay visible** |
-
-The Dec 18 TLEs still showed the **pre-anomaly orbit**. The orbital decay only appeared in TLEs generated on Dec 19 - a full 26-hour lag.
-
-But here's the thing: **I was already using those Dec 18 TLEs**. Even with those, I calculated 350 km over the Sea of Okhotsk, not 241 km over Alaska.
-
-I also tested with the post-anomaly TLE (Dec 19 22:47 UTC, showing orbital decay) back-propagated to Dec 17-19:
+The TLEs from Dec 18 still showed normal orbital parameters. The orbital decay only appeared in a TLE generated on Dec 19 22:47 UTC. I tested by back-propagating this post-anomaly TLE:
 
 | TLE Used | Dec 18 23:55 Distance | Best Approach |
 |----------|----------------------|---------------|
@@ -101,9 +89,19 @@ I also tested with the post-anomaly TLE (Dec 19 22:47 UTC, showing orbital decay
 | Post-anomaly TLE | 650 km | 190 km (Dec 19 00:42) |
 | **Reported** | **241 km** | **Alaska** |
 
-The post-anomaly TLE gives closer results (650 km vs 981 km on Dec 18), but still nowhere near 241 km over Alaska. The discrepancy isn't about TLE lag or epoch selection.
+**Result:** The post-anomaly TLE improves the Dec 18 distance (650 km vs 981 km), but still doesn't reproduce 241 km over Alaska.
 
-### What's Really Going On
+### Summary
+
+| What Was Reported | What I Found |
+|-------------------|--------------|
+| 241 km | 204 km (Dec 17) or 350 km (Dec 18 US time) |
+| Dec 18 | Dec 17 12:19 UTC or Dec 19 01:30 UTC |
+| Over Alaska | Atlantic Ocean or Sea of Okhotsk |
+
+None of the three approaches could reproduce the reported geometry.
+
+## What's Really Going On
 
 The mismatch suggests something more fundamental:
 
