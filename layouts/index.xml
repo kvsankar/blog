@@ -1,0 +1,31 @@
+{{- $pages := where .Site.RegularPages "Section" "posts" -}}
+{{- $pages = $pages.ByDate.Reverse -}}
+{{- $limit := 15 -}}
+{{- with .Site.Config.Services.RSS }}
+  {{- if gt .Limit 0 }}
+    {{- $limit = .Limit -}}
+  {{- end }}
+{{- end }}
+{{- if gt (len $pages) $limit }}
+  {{- $pages = first $limit $pages -}}
+{{- end }}
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ .Site.Title }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ with .Site.Params.description }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}</description>
+    <language>{{ .Site.LanguageCode }}</language>
+    <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</lastBuildDate>
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid>{{ .Permalink }}</guid>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 MST" }}</pubDate>
+      <description><![CDATA[{{ .Content | safeHTML }}]]></description>
+      <content:encoded><![CDATA[{{ .Content | safeHTML }}]]></content:encoded>
+    </item>
+    {{- end }}
+  </channel>
+</rss>
