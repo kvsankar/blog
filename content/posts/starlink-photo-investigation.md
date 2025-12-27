@@ -69,10 +69,11 @@ But wait. The reported distance was **241 km over Alaska**. Neither match.
 
 ## The Discrepancy
 
-| Metric | Reported | Calculated |
-|--------|----------|------------|
-| Distance | 241 km | 204 km (Dec 17) or 350 km (Dec 18 US time) |
-| Location | Alaska | Atlantic or [Sea of Okhotsk](https://www.google.com/maps/@54,146,5z) |
+| Metric | Reported | Calculated (Dec 17) | Calculated (Dec 18 US) |
+|--------|----------|---------------------|------------------------|
+| Distance | 241 km | 204 km | 350 km |
+| Time | Dec 18 | Dec 17 12:19 UTC | Dec 19 01:30 UTC (Dec 18 5:30 PM PST) |
+| Location | Alaska | Atlantic (53°N, 17°W) | [Sea of Okhotsk](https://www.google.com/maps/@54,146,5z) (55°N, 146°E) |
 
 I also searched specifically for approaches while WorldView-3 was over Alaska. The closest: **1,157 km** on Dec 18 23:54 UTC over the western Aleutians. Nowhere near 241 km.
 
