@@ -5,6 +5,10 @@ draft: false
 description: "How dryscope grew from a documentation-overlap experiment into a PyPI package for finding duplicate code, overlapping docs, and focused cleanup context for AI coding agents"
 categories: ["Tools", "AI"]
 tags: ["AI Coding", "Python", "CLI", "Embeddings", "Code Quality", "Documentation"]
+cover:
+  image: "/images/dryscope/dryscope-process.png"
+  alt: "dryscope process diagram"
+  relative: false
 ---
 
 I started using AI coding tools sometime in 2024. At first, that mostly meant Cursor-style code completion: useful, occasionally surprising, but not yet the kind of agentic workflow where I could hand over a repository-level task and expect sustained progress.
@@ -148,7 +152,7 @@ That distinction matters. Section Match says, "these sections repeat." Docs Map 
 
 Both are useful before giving context to an agent.
 
-![dryscope process diagram](https://raw.githubusercontent.com/kvsankar/dryscope/master/docs/images/dryscope-process.png)
+![dryscope process diagram](/images/dryscope/dryscope-process.png)
 
 ## Why Not Just Ask The Agent?
 
