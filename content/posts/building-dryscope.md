@@ -1,7 +1,7 @@
 ---
 title: "Building dryscope: Narrowing Repositories Before AI Agents Clean Them Up"
 date: 2026-05-02
-draft: true
+draft: false
 description: "How dryscope grew from a documentation-overlap experiment into a PyPI package for finding duplicate code, overlapping docs, and focused cleanup context for AI coding agents"
 categories: ["Tools", "AI"]
 tags: ["AI Coding", "Python", "CLI", "Embeddings", "Code Quality", "Documentation"]
