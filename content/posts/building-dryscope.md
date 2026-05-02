@@ -27,6 +27,8 @@ By late 2025, coding agents crossed an inflection point. Around November 2025, t
 
 On May 1, 2026, I published [`dryscope`](https://pypi.org/project/dryscope/) to PyPI. It is my attempt to answer that question.
 
+The name is a conflation of **DRY** ("Don't Repeat Yourself") and **telescope**. DRY gives the target: repeated code, repeated explanations, and overlapping knowledge. Telescope gives the posture: look across a large repository and bring the interesting parts into view before deciding what to clean up.
+
 `dryscope` scans a repository and produces a shortlist: duplicate-code candidates, repeated documentation sections, and documentation intent overlap. It does not rewrite your code or decide the refactor for you. The point is narrower and more practical: before I ask an agent, stronger model, or human reviewer to clean up a repo, show me the files and sections worth reading first.
 
 Repository: [github.com/kvsankar/dryscope](https://github.com/kvsankar/dryscope)
